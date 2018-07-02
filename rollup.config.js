@@ -3,6 +3,8 @@ import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import buble from 'rollup-plugin-buble';
 import uglify from 'rollup-plugin-uglify';
+import serve from 'rollup-plugin-serve'
+import livereload from 'rollup-plugin-livereload'
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -40,6 +42,8 @@ export default {
 		// If we're building for production (npm run build
 		// instead of npm run dev), transpile and minify
 		production && buble({ include: ['src/**', 'node_modules/svelte/shared.js'] }),
-		production && uglify()
+		production && uglify(),
+		serve("public"),      // index.html should be in root of project
+    livereload("public")
 	]
 };
